@@ -1,0 +1,13 @@
+c:\users\rivers\documents\visual studio 2013\Projects\NPCShopping\NPCShopping\bin\NPCShopping.dll.config
+c:\users\rivers\documents\visual studio 2013\Projects\NPCShopping\NPCShopping\bin\NPCShopping.dll
+c:\users\rivers\documents\visual studio 2013\Projects\NPCShopping\NPCShopping\bin\NPCShopping.pdb
+c:\users\rivers\documents\visual studio 2013\Projects\NPCShopping\NPCShopping\obj\Debug\NPCShopping.csprojResolveAssemblyReference.cache
+c:\users\rivers\documents\visual studio 2013\Projects\NPCShopping\NPCShopping\obj\Debug\NPCShopping.dll
+c:\users\rivers\documents\visual studio 2013\Projects\NPCShopping\NPCShopping\obj\Debug\NPCShopping.pdb
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\bin\NPCShopping.dll.config
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\bin\NPCShopping.dll
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\bin\NPCShopping.pdb
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\obj\Debug\NPCShopping.csprojResolveAssemblyReference.cache
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\obj\Debug\NPCShopping.dll
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\obj\Debug\NPCShopping.pdb
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\bin\AjaxControlToolkit.dll

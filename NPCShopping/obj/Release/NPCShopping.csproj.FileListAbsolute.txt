@@ -1,0 +1,7 @@
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\bin\NPCShopping.dll.config
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\bin\NPCShopping.dll
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\bin\NPCShopping.pdb
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\bin\AjaxControlToolkit.dll
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\obj\Release\NPCShopping.csprojResolveAssemblyReference.cache
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\obj\Release\NPCShopping.dll
+C:\Users\rivers\Desktop\NPCShopping\NPCShopping\obj\Release\NPCShopping.pdb

@@ -1,0 +1,26 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="NPCShopping.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <asp:Image ID="Image1" runat="server" ImageUrl="~/images/NPCBanner.PNG" Width="1000px" />
+    <form id="form1" runat="server">
+    <div>
+        <asp:Label ID="lblLoginStatus" runat="server" Text="Label" Font-Size="Small" style="float:right;" ></asp:Label><br />
+        <asp:Label ID="lblCartStatus" runat="server" Text="Label" Font-Size="Small" style="float:right;" ></asp:Label>
+        <asp:HyperLink ID="hlAdmin" runat="server" Visible="False" NavigateUrl="~/AdminPages/addProduct1.aspx" Font-Size="Small" style="float:left;">Admin</asp:HyperLink><br />
+        <asp:HyperLink ID="hlLogout" runat="server" Visible="False" NavigateUrl="~/Logout.aspx" Font-Size="Small" style="float:right;">Logout</asp:HyperLink><br />
+
+        <asp:ContentPlaceHolder ID="CP1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
