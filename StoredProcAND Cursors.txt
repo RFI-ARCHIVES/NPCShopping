@@ -1,0 +1,232 @@
+
+--**************************************
+--Simple Stored Procedure with no variables
+--*****************************************
+create procedure simpleSP
+as
+select * from customer;
+
+--*************
+exec simpleSP
+
+
+
+--**************************************
+--Stored Procedure with one input, one return
+--**************************************
+create proc getCustomerID
+  @custName char(35),
+  @id int OUTPUT
+as
+begin
+  select @id = customer_num from customer 
+  where customer_name = @custName 
+end
+
+--********************
+declare @id as int;
+exec getCustomerID 'Cards and More', @id OUTPUT;
+select @id;
+
+
+
+--**************************************
+--Example 7 Display Rep Name given rep_num
+--************************************
+create procedure display_rep_name
+@repnum char(2)
+as
+select rtrim(first_name)+' '+rtrim(last_name)
+from rep
+where rep_num = @repnum
+
+--*******************
+exec display_rep_name '15'
+
+
+
+--**************************************
+--Example 8 Change the name of customer given customer_num
+--and new customer name
+--**************************************
+create procedure change_customer_name
+@custnum int,
+@custname char(35)
+as
+update customer
+set customer_name = @custname
+where customer_num = @custnum
+
+--*******************
+exec change_customer_name '126','jim'
+
+
+
+--**************************************
+--Example 9 Delete and order given order_num
+--Must delete order_line entries first because of foreign keys
+--**************************************
+create procedure delete_order
+@ordernum char(5)
+as
+delete from order_line
+where order_num = @ordernum
+
+delete from orders
+where order_num = @ordernum
+
+
+
+--**************************************
+--Simple Cursor  Return list of customers with given rep_num
+--**************************************
+declare mycursor cursor read_only
+for
+select customer_num, customer_name
+from customer
+where rep_num = '15';
+
+declare @custnum char(3);
+declare @custname char(35);
+
+open mycursor
+fetch next from mycursor
+into @custnum, @custname;
+select @custnum, @custname;
+close mycursor
+deallocate mycursor
+
+
+--**************************************
+--Simple Cursor with loop. Same as above with loop
+--*****************************************
+declare mycursor cursor read_only
+for
+select customer_num, customer_name
+from customer
+where rep_num = '15';
+
+declare @custnum char(3);
+declare @custname char(35);
+
+open mycursor
+fetch next from mycursor
+  into @custnum, @custname;
+
+while @@fetch_status=0
+  begin
+    select @custnum + ' ' + @custname;
+    fetch next from mycursor into @custnum, @custname;
+  end
+
+close mycursor
+deallocate mycursor
+
+
+--**************************************
+--Cursor in Stored Procedure. Same as above but in a stored procedure.
+--Input: rep_num
+--******************************************
+create procedure display_rep_cust
+@repnum char(2)
+as
+declare @custnum char(3);
+declare @custname char(35);
+
+declare mycursor cursor read_only
+for
+select customer_num, customer_name
+from customer
+where rep_num = @repnum;
+
+open mycursor
+fetch next from mycursor
+into @custnum, @custname;
+
+while @@fetch_status=0
+  begin
+    print @custnum + ' ' + @custname;
+    fetch next from mycursor into @custnum, @custname;
+  end
+
+close mycursor
+deallocate mycursor
+
+
+--**************************
+exec display_rep_cust '15'
+
+--**********************************************
+--TRIGGERS
+--**********************************************
+--Add on_order decimal(4,0) column to Item table
+
+create trigger add_order_line
+on order_line
+after insert
+as
+
+Declare @numbord decimal(3,0);
+Declare @itemord char(4);
+select @numbord = (select num_ordered from inserted);
+select @itemord = (select item_num from inserted);
+
+update item
+set on_order = on_order + @numbord
+where item_num = @itemord;
+
+
+--***
+--Insert to fire trigger (above)
+insert into order_line 
+(order_num, item_num, num_ordered, quoted_price) 
+values 
+('51666','FD11',5,120.00);
+
+--********************************************
+--Trigger example 2
+--Exercise 9A on page 263
+--*******************************
+create trigger add_customer
+on customer
+after insert
+as
+
+Declare @rep_num char(4);
+Declare @balance decimal(8,2);
+select @rep_num = (Select rep_num from inserted);
+select @balance = (Select balance from inserted);
+
+update rep
+set commission = commission + (@balance * rate)
+where rep_num = @rep_num;
+
+--***
+--Insert command for trigger (above)
+INSERT INTO [dbo].[CUSTOMER]
+           ([CUSTOMER_NAME]
+           ,[STREET]
+           ,[CITY]
+           ,[STATE]
+           ,[POSTAL_CODE]
+           ,[BALANCE]
+           ,[CREDIT_LIMIT]
+           ,[REP_NUM])
+     VALUES
+           ('Jim Jones', '123 Anywhere', 'Hot Springs',
+		   'AR', '71913', 1000, 5000, '15')
+
+--**********************************************
+--Constraints
+--**********************************************
+alter table customer
+add constraint ck_customer_balance
+check 
+(credit_limit >999 and credit_limit < 15001)
+
+alter table customer
+with nocheck   --do not check existing data
+add constraint ck_customer_state
+check 
+(state in ('AR'))
+
